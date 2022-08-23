@@ -1,4 +1,4 @@
-import { Controller, Get, Param } from '@nestjs/common';
+import { Body, Controller, Get, Param, Post } from '@nestjs/common';
 
 @Controller('courses') //Cria rota /courses
 export class CoursesController {
@@ -12,5 +12,12 @@ export class CoursesController {
         @Param('id') id: string // Indica que haverá um recebimento de parâmetros e o tipo dele
     ) {
         return `Curso #${id}`; // Parâmetro definido no método Get
+    }
+
+    @Post()
+    create(
+        @Body() body // Indica corpo que conterá os dados enviados!
+    ) {
+        return body;
     }
 }
