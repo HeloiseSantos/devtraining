@@ -1,10 +1,12 @@
-import { Body, Controller, Get, Param, Post } from '@nestjs/common';
+import { Body, Controller, Get, HttpCode, HttpStatus, Param, Post, Res } from '@nestjs/common';
 
 @Controller('courses') //Cria rota /courses
 export class CoursesController {
     @Get('list') // Cria rota /courses/list
-    findAll() {
-        return 'Listagem de cursos';
+    findAll(
+        @Res() response
+    ) {
+        return response.status(200).send('Listagem de cursos');
     }
 
     @Get(':id') // Define o nome do parâmetro que quero pegar e indicar na rota
@@ -15,6 +17,7 @@ export class CoursesController {
     }
 
     @Post()
+    @HttpCode(HttpStatus.NO_CONTENT) // Força o método para retornar 204 ao invés de 201 na requisição
     create(
         @Body() body // Indica corpo que conterá os dados enviados!
     ) {
