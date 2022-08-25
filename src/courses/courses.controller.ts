@@ -1,8 +1,8 @@
-import { Body, Controller, Get, HttpCode, HttpStatus, Param, Post, Res } from '@nestjs/common';
+import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Patch, Post, Res } from '@nestjs/common';
 
-@Controller('courses') //Cria rota /courses
+@Controller('courses') // Rota /courses
 export class CoursesController {
-    @Get('list') // Cria rota /courses/list
+    @Get('list') // Rota /courses/list
     findAll(
         @Res() response
     ) {
@@ -22,5 +22,20 @@ export class CoursesController {
         @Body() body // Indica corpo que conterá os dados enviados!
     ) {
         return body;
+    }
+
+    @Patch(':id')
+    update(
+        @Param('id') id: string,
+        @Body() body
+    ) {
+        return `Atualização do curso #${id}`;
+    }
+
+    @Delete(':id')
+    remove(
+        @Param('id') id: string
+    ) {
+        return `Exclusão do curso #${id}`;
     }
 }
