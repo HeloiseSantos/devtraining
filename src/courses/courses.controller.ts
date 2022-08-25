@@ -1,7 +1,13 @@
 import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Patch, Post, Res } from '@nestjs/common';
+import { CoursesService } from './courses.service';
 
 @Controller('courses') // Rota /courses
 export class CoursesController {
+    constructor(
+        private readonly coursesService: CoursesService // Instância do service através de injeçãoo de dependência
+    ) {
+
+    }
     @Get('list') // Rota /courses/list
     findAll(
         @Res() response
