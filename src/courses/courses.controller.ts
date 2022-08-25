@@ -1,4 +1,4 @@
-import { Body, Controller, Delete, Get, HttpCode, HttpStatus, Param, Patch, Post, Res } from '@nestjs/common';
+import { Body, Controller, Delete, Get, Param, Patch, Post } from '@nestjs/common';
 import { CoursesService } from './courses.service';
 
 @Controller('courses') // Rota /courses
@@ -9,25 +9,22 @@ export class CoursesController {
 
     }
     @Get('list') // Rota /courses/list
-    findAll(
-        @Res() response
-    ) {
-        return response.status(200).send('Listagem de cursos');
+    findAll() {
+        return this.coursesService.findAll();
     }
 
     @Get(':id') // Define o nome do parâmetro que quero pegar e indicar na rota
     findOne(
         @Param('id') id: string // Indica que haverá um recebimento de parâmetros e o tipo dele
     ) {
-        return `Curso #${id}`; // Parâmetro definido no método Get
+        return this.coursesService.findOne(id);
     }
 
     @Post()
-    @HttpCode(HttpStatus.NO_CONTENT) // Força o método para retornar 204 ao invés de 201 na requisição
     create(
         @Body() body // Indica corpo que conterá os dados enviados!
     ) {
-        return body;
+        return this.coursesService.create(body);
     }
 
     @Patch(':id')
@@ -35,13 +32,13 @@ export class CoursesController {
         @Param('id') id: string,
         @Body() body
     ) {
-        return `Atualização do curso #${id}`;
+        return this.coursesService.update(id, body);
     }
 
     @Delete(':id')
     remove(
         @Param('id') id: string
     ) {
-        return `Exclusão do curso #${id}`;
+        return this.coursesService.remove(id);
     }
 }
