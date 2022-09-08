@@ -22,6 +22,8 @@ export class CoursesService {
         if(!course) {
             throw new HttpException(`Course ID ${id} not found!`, HttpStatus.NOT_FOUND,);
         }
+
+        return course;
     }
 
     create(createCourseDto: any) {
